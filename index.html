@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>文明出行-神木有我</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="/static/css/index.css" rel="stylesheet">
+</head>
+<body>
+	<div class="mybox">
+		  <div class="form-group">
+			  <input type="text" class="form-control input-text" placeholder="输入你的名字" id="name" name='name'>
+			</div>
+			<div class="form-group">
+			  <a class="btn mybtn" id="go" href="javascript:void(0)">生成海报</a>
+			</div>
+	</div>
+	<script src="static/js/jquery.min.js"></script>
+	<script>  
+		$(function(){		
+			$("body").attr("style","height:"+ window.innerHeight+"px;width:"+window.innerWidth+'px');
+			$("#go").on("click",function(){
+				var userName = $("#name").val();
+				if(userName == ""){
+					alert("名字不能为空！");
+					return;
+				}
+				$.get("data/poster.php",{name: userName}, function(result){
+					if(result.error){
+						alert(result.msg);
+						return;
+					}
+					self.location="poster.html?name="+userName; 
+				});
+			})
+			// $("#name").on("input",function(){
+			// 	var userName = $(this).val();
+			// 	$("#go").attr("href","poster.html?name="+userName);
+			// })
+		})
+	</script>  
+</body>
+</html>
